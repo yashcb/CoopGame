@@ -24,6 +24,7 @@
 /wd4838
 /we4668
 /I .
+/I G:\Yash\CoopGame\Source\CoopGame\Private
 /I ..\Intermediate\Build\Win64\UE4Editor\Inc\Engine
 /I Runtime
 /I Runtime\Engine\Classes
@@ -414,6 +415,7 @@
 /I ThirdParty\libSampleRate
 /I G:\Yash\CoopGame\Intermediate\Build\Win64\UE4Editor\Inc\CoopGame
 /I G:\Yash\CoopGame\Source
+/I G:\Yash\CoopGame\Source\CoopGame\Public
 /I G:\Yash\CoopGame\Source\CoopGame
 /I "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\INCLUDE"
 /I "C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um"

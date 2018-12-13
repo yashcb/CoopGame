@@ -27,6 +27,10 @@ protected:
 
 	void MoveRight(float Value);
 
+	void BeginCrouch();
+
+	void EndCrouch();
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	UCameraComponent* CameraComp;
 
@@ -39,5 +43,6 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
+	
+	virtual FVector GetPawnViewLocation() const override;
 };
