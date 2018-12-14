@@ -59,7 +59,10 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(ASProjectileWeapon); \
 	DEFINE_DEFAULT_CONSTRUCTOR_CALL(ASProjectileWeapon)
 
 
-#define CoopGame_Source_CoopGame_Public_SProjectileWeapon_h_15_PRIVATE_PROPERTY_OFFSET
+#define CoopGame_Source_CoopGame_Public_SProjectileWeapon_h_15_PRIVATE_PROPERTY_OFFSET \
+	FORCEINLINE static uint32 __PPO__ProjectileClass() { return STRUCT_OFFSET(ASProjectileWeapon, ProjectileClass); }
+
+
 #define CoopGame_Source_CoopGame_Public_SProjectileWeapon_h_12_PROLOG
 #define CoopGame_Source_CoopGame_Public_SProjectileWeapon_h_15_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
