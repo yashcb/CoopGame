@@ -42,13 +42,14 @@ protected:
 
 	UFUNCTION()
 	void OnHealthChanged(
-				USHealthComponent* HealthComp,
+				USHealthComponent* OwningHealthComp,
 				float Health,
 				float HealthDelta,
 				const class UDamageType* DamageType,
 				class AController* InstigatedBy,
 				AActor* DamageCauser);
 	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components") 
 	USHealthComponent* HealthComp;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
@@ -67,6 +68,7 @@ protected:
 
 	bool bWantsToZoom;
 
+	UPROPERTY(Replicated)
 	ASWeapon* CurrentWeapon;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Player")
@@ -77,6 +79,8 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly, Category = "Player")
 	bool bDied;
+
+	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty> & OutLifetimeProps);
 
 public:	
 	// Called every frame

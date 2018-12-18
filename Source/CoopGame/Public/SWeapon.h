@@ -26,6 +26,9 @@ protected:
 
 	void PlayFireEffects(FVector TraceEnd);
 
+	UFUNCTION(Server, Reliable, WithValidation)
+	void ServerFire();
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
 	TSubclassOf<UDamageType> DamageType;
 

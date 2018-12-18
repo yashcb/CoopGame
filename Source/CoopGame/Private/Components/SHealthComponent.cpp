@@ -1,11 +1,12 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "G:/Yash/CoopGame/Source/CoopGame/Public/Components/SHealthComponent.h"
+#include "GameFramework/Actor.h"
 
 // Sets default values for this component's properties
 USHealthComponent::USHealthComponent()
 {
-	Health = 100;
+	DefaultHealth = 100;
 }
 
 // Called when the game starts
@@ -18,7 +19,7 @@ void USHealthComponent::BeginPlay()
 	{
 		MyOwner->OnTakeAnyDamage.AddDynamic(this, &USHealthComponent::HandleTakeAnyDamage);
 	}
-	Health = DefaultHealth;
+	Health = DefaultHealth;	
 }
 
 void USHealthComponent::HandleTakeAnyDamage(

@@ -21,7 +21,7 @@ class AActor;
  \
 	DECLARE_FUNCTION(execOnHealthChanged) \
 	{ \
-		P_GET_OBJECT(USHealthComponent,Z_Param_HealthComp); \
+		P_GET_OBJECT(USHealthComponent,Z_Param_OwningHealthComp); \
 		P_GET_PROPERTY(UFloatProperty,Z_Param_Health); \
 		P_GET_PROPERTY(UFloatProperty,Z_Param_HealthDelta); \
 		P_GET_OBJECT(UDamageType,Z_Param_DamageType); \
@@ -29,7 +29,7 @@ class AActor;
 		P_GET_OBJECT(AActor,Z_Param_DamageCauser); \
 		P_FINISH; \
 		P_NATIVE_BEGIN; \
-		P_THIS->OnHealthChanged(Z_Param_HealthComp,Z_Param_Health,Z_Param_HealthDelta,Z_Param_DamageType,Z_Param_InstigatedBy,Z_Param_DamageCauser); \
+		P_THIS->OnHealthChanged(Z_Param_OwningHealthComp,Z_Param_Health,Z_Param_HealthDelta,Z_Param_DamageType,Z_Param_InstigatedBy,Z_Param_DamageCauser); \
 		P_NATIVE_END; \
 	}
 
@@ -38,7 +38,7 @@ class AActor;
  \
 	DECLARE_FUNCTION(execOnHealthChanged) \
 	{ \
-		P_GET_OBJECT(USHealthComponent,Z_Param_HealthComp); \
+		P_GET_OBJECT(USHealthComponent,Z_Param_OwningHealthComp); \
 		P_GET_PROPERTY(UFloatProperty,Z_Param_Health); \
 		P_GET_PROPERTY(UFloatProperty,Z_Param_HealthDelta); \
 		P_GET_OBJECT(UDamageType,Z_Param_DamageType); \
@@ -46,7 +46,7 @@ class AActor;
 		P_GET_OBJECT(AActor,Z_Param_DamageCauser); \
 		P_FINISH; \
 		P_NATIVE_BEGIN; \
-		P_THIS->OnHealthChanged(Z_Param_HealthComp,Z_Param_Health,Z_Param_HealthDelta,Z_Param_DamageType,Z_Param_InstigatedBy,Z_Param_DamageCauser); \
+		P_THIS->OnHealthChanged(Z_Param_OwningHealthComp,Z_Param_Health,Z_Param_HealthDelta,Z_Param_DamageType,Z_Param_InstigatedBy,Z_Param_DamageCauser); \
 		P_NATIVE_END; \
 	}
 
@@ -94,10 +94,12 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(ASCharacter); \
 
 
 #define CoopGame_Source_CoopGame_SCharacter_h_16_PRIVATE_PROPERTY_OFFSET \
+	FORCEINLINE static uint32 __PPO__HealthComp() { return STRUCT_OFFSET(ASCharacter, HealthComp); } \
 	FORCEINLINE static uint32 __PPO__CameraComp() { return STRUCT_OFFSET(ASCharacter, CameraComp); } \
 	FORCEINLINE static uint32 __PPO__SpringArmComp() { return STRUCT_OFFSET(ASCharacter, SpringArmComp); } \
 	FORCEINLINE static uint32 __PPO__ZoomedFOV() { return STRUCT_OFFSET(ASCharacter, ZoomedFOV); } \
 	FORCEINLINE static uint32 __PPO__ZoomInterpSpeed() { return STRUCT_OFFSET(ASCharacter, ZoomInterpSpeed); } \
+	FORCEINLINE static uint32 __PPO__CurrentWeapon() { return STRUCT_OFFSET(ASCharacter, CurrentWeapon); } \
 	FORCEINLINE static uint32 __PPO__StarterWeapon() { return STRUCT_OFFSET(ASCharacter, StarterWeapon); } \
 	FORCEINLINE static uint32 __PPO__WeaponAttachSocketname() { return STRUCT_OFFSET(ASCharacter, WeaponAttachSocketname); } \
 	FORCEINLINE static uint32 __PPO__bDied() { return STRUCT_OFFSET(ASCharacter, bDied); }
