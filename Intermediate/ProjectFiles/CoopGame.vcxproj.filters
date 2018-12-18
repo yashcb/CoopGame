@@ -52,6 +52,9 @@
     <ClInclude Include="..\..\Source\CoopGame\Public\SProjectileWeapon.h">
       <Filter>Source\CoopGame\Public</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\CoopGame\Public\Components\SHealthComponent.h">
+      <Filter>Source\CoopGame\Public\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\CoopGame\SCharacter.cpp">
@@ -63,6 +66,9 @@
     <ClCompile Include="..\..\Source\CoopGame\Private\SProjectileWeapon.cpp">
       <Filter>Source\CoopGame\Private</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\CoopGame\Private\Components\SHealthComponent.cpp">
+      <Filter>Source\CoopGame\Private\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source\CoopGame\Public">
@@ -70,6 +76,12 @@
     </Filter>
     <Filter Include="Source\CoopGame\Private">
       <UniqueIdentifier>{c73dfd99-40c3-47d4-9d56-00ae0f81c4c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\CoopGame\Public\Components">
+      <UniqueIdentifier>{4dd3a7c4-8228-48bb-9f69-671ef447645b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\CoopGame\Private\Components">
+      <UniqueIdentifier>{2a1c1d6b-4758-4a32-a335-b3507e342f1b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

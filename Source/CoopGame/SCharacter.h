@@ -9,7 +9,7 @@
 class UCameraComponent;
 class USpringArmComponent;
 class ASWeapon;
-
+class USHealthComponent;
 UCLASS()
 class COOPGAME_API ASCharacter : public ACharacter
 {
@@ -36,6 +36,21 @@ protected:
 
 	void EndZoom();
 
+	void StartFire();
+
+	void StopFire();
+
+	UFUNCTION()
+	void OnHealthChanged(
+				USHealthComponent* HealthComp,
+				float Health,
+				float HealthDelta,
+				const class UDamageType* DamageType,
+				class AController* InstigatedBy,
+				AActor* DamageCauser);
+	
+	USHealthComponent* HealthComp;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	UCameraComponent* CameraComp;
 
@@ -54,13 +69,14 @@ protected:
 
 	ASWeapon* CurrentWeapon;
 
-	void Fire();
-
 	UPROPERTY(EditDefaultsOnly, Category = "Player")
 	TSubclassOf<ASWeapon> StarterWeapon;
 
 	UPROPERTY(VisibleDefaultsOnly, Category = "Player")
 	FName WeaponAttachSocketname;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Player")
+	bool bDied;
 
 public:	
 	// Called every frame

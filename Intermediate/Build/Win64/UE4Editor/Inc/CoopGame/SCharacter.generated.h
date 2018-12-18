@@ -8,13 +8,49 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+class USHealthComponent;
+class UDamageType;
+class AController;
+class AActor;
 #ifdef COOPGAME_SCharacter_generated_h
 #error "SCharacter.generated.h already included, missing '#pragma once' in SCharacter.h"
 #endif
 #define COOPGAME_SCharacter_generated_h
 
-#define CoopGame_Source_CoopGame_SCharacter_h_16_RPC_WRAPPERS
-#define CoopGame_Source_CoopGame_SCharacter_h_16_RPC_WRAPPERS_NO_PURE_DECLS
+#define CoopGame_Source_CoopGame_SCharacter_h_16_RPC_WRAPPERS \
+ \
+	DECLARE_FUNCTION(execOnHealthChanged) \
+	{ \
+		P_GET_OBJECT(USHealthComponent,Z_Param_HealthComp); \
+		P_GET_PROPERTY(UFloatProperty,Z_Param_Health); \
+		P_GET_PROPERTY(UFloatProperty,Z_Param_HealthDelta); \
+		P_GET_OBJECT(UDamageType,Z_Param_DamageType); \
+		P_GET_OBJECT(AController,Z_Param_InstigatedBy); \
+		P_GET_OBJECT(AActor,Z_Param_DamageCauser); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		P_THIS->OnHealthChanged(Z_Param_HealthComp,Z_Param_Health,Z_Param_HealthDelta,Z_Param_DamageType,Z_Param_InstigatedBy,Z_Param_DamageCauser); \
+		P_NATIVE_END; \
+	}
+
+
+#define CoopGame_Source_CoopGame_SCharacter_h_16_RPC_WRAPPERS_NO_PURE_DECLS \
+ \
+	DECLARE_FUNCTION(execOnHealthChanged) \
+	{ \
+		P_GET_OBJECT(USHealthComponent,Z_Param_HealthComp); \
+		P_GET_PROPERTY(UFloatProperty,Z_Param_Health); \
+		P_GET_PROPERTY(UFloatProperty,Z_Param_HealthDelta); \
+		P_GET_OBJECT(UDamageType,Z_Param_DamageType); \
+		P_GET_OBJECT(AController,Z_Param_InstigatedBy); \
+		P_GET_OBJECT(AActor,Z_Param_DamageCauser); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		P_THIS->OnHealthChanged(Z_Param_HealthComp,Z_Param_Health,Z_Param_HealthDelta,Z_Param_DamageType,Z_Param_InstigatedBy,Z_Param_DamageCauser); \
+		P_NATIVE_END; \
+	}
+
+
 #define CoopGame_Source_CoopGame_SCharacter_h_16_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesASCharacter(); \
@@ -63,7 +99,8 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(ASCharacter); \
 	FORCEINLINE static uint32 __PPO__ZoomedFOV() { return STRUCT_OFFSET(ASCharacter, ZoomedFOV); } \
 	FORCEINLINE static uint32 __PPO__ZoomInterpSpeed() { return STRUCT_OFFSET(ASCharacter, ZoomInterpSpeed); } \
 	FORCEINLINE static uint32 __PPO__StarterWeapon() { return STRUCT_OFFSET(ASCharacter, StarterWeapon); } \
-	FORCEINLINE static uint32 __PPO__WeaponAttachSocketname() { return STRUCT_OFFSET(ASCharacter, WeaponAttachSocketname); }
+	FORCEINLINE static uint32 __PPO__WeaponAttachSocketname() { return STRUCT_OFFSET(ASCharacter, WeaponAttachSocketname); } \
+	FORCEINLINE static uint32 __PPO__bDied() { return STRUCT_OFFSET(ASCharacter, bDied); }
 
 
 #define CoopGame_Source_CoopGame_SCharacter_h_13_PROLOG

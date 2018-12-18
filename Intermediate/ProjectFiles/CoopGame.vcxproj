@@ -499,9 +499,11 @@
     <NMakeOutput>..\..\Binaries\HTML5\CoopGame-HTML5-Shipping.js</NMakeOutput>
   </PropertyGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\CoopGame\Private\Components\SHealthComponent.cpp" />
     <ClCompile Include="..\..\Source\CoopGame\Private\SProjectileWeapon.cpp" />
     <ClCompile Include="..\..\Source\CoopGame\Private\SWeapon.cpp" />
     <ClCompile Include="..\..\Source\CoopGame\SCharacter.cpp" />
+    <ClInclude Include="..\..\Source\CoopGame\Public\Components\SHealthComponent.h" />
     <ClInclude Include="..\..\Source\CoopGame\Public\SProjectileWeapon.h" />
     <ClInclude Include="..\..\Source\CoopGame\Public\SWeapon.h" />
     <ClInclude Include="..\..\Source\CoopGame\SCharacter.h" />
