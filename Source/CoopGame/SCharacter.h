@@ -20,7 +20,6 @@ public:
 	ASCharacter();
 
 protected:
-
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	
@@ -80,7 +79,7 @@ protected:
 	UPROPERTY(BlueprintReadOnly, Category = "Player")
 	bool bDied;
 
-	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty> & OutLifetimeProps);
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty> & OutLifetimeProps) const override;
 
 public:	
 	// Called every frame

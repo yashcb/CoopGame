@@ -10,7 +10,7 @@
 #include "Public/SWeapon.h"
 #include "Public/Components/SHealthComponent.h"
 #include "CoopGame.h"
-#include "Net/UnrealNetwork.h"
+#include "UnrealNetwork.h"
 
 // Sets default values
 ASCharacter::ASCharacter()
@@ -35,6 +35,7 @@ ASCharacter::ASCharacter()
 	ZoomInterpSpeed = 20.0f;
 
 	WeaponAttachSocketname = "WeaponSocket";
+	bReplicates = true;
 }
 
 // Called when the game starts or when spawned
@@ -47,7 +48,6 @@ void ASCharacter::BeginPlay()
 
 	if (Role == ROLE_Authority)
 	{
-
 		// Set default weapon to spawn
 		FActorSpawnParameters SpawnParams;
 		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
@@ -67,7 +67,6 @@ void ASCharacter::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	float TargetFOV = bWantsToZoom ? ZoomedFOV : DefaultFOV;
-
 	float NewFOV = FMath::FInterpTo(CameraComp->FieldOfView, TargetFOV, DeltaTime, ZoomInterpSpeed);
 
 	CameraComp->SetFieldOfView(NewFOV);
@@ -86,29 +85,21 @@ void ASCharacter::EndCrouch()
 {	UnCrouch();	 }
 
 void ASCharacter::BeginZoom()
-{
-	bWantsToZoom = true;
-}
+{	bWantsToZoom = true;	}
 
 void ASCharacter::EndZoom()
-{
-	bWantsToZoom = false;
-}
+{	bWantsToZoom = false;	}
 
 void ASCharacter::StartFire()
 {
 	if (CurrentWeapon)
-	{
-		CurrentWeapon->StartFire();
-	}
+	{	CurrentWeapon->StartFire();	 }
 }
 
 void ASCharacter::StopFire()
 {
 	if (CurrentWeapon)
-	{
-		CurrentWeapon->StopFire();
-	}
+	{	CurrentWeapon->StopFire();	}
 }
 
 void ASCharacter::OnHealthChanged(
@@ -128,7 +119,6 @@ void ASCharacter::OnHealthChanged(
 		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 		DetachFromControllerPendingDestroy();
-
 		SetLifeSpan(10.0f);
 	}
 }
@@ -165,9 +155,8 @@ void ASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	PlayerInputComponent->BindAction("Fire", IE_Released, this, &ASCharacter::StopFire);
 }
 
-void  ASCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty> & OutLifetimeProps)
+void  ASCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-
 	DOREPLIFETIME(ASCharacter, CurrentWeapon);
 }

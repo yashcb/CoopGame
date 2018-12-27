@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "UnrealNetwork.h"
 #include "SWeapon.generated.h"
 
 class USkeletalMeshComponent;
@@ -11,11 +12,24 @@ class UDamageType;
 class UParticleSystem;
 class UCameraShake;
 
+// Contains information of single weapon linetrace
+USTRUCT()
+struct FHitScanTrace
+{
+	GENERATED_BODY()
+public:
+
+	UPROPERTY()
+	TEnumAsByte<EPhysicalSurface> SurfaceType;
+
+	UPROPERTY()
+	FVector_NetQuantize TraceTo;
+};
+
 UCLASS()
 class COOPGAME_API ASWeapon : public AActor
 {
 	GENERATED_BODY()
-	
 public:	
 	// Sets default values for this actor's properties
 	ASWeapon();
@@ -24,10 +38,7 @@ protected:
 
 	virtual void BeginPlay() override;
 
-	void PlayFireEffects(FVector TraceEnd);
-
-	UFUNCTION(Server, Reliable, WithValidation)
-	void ServerFire();
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty> & OutLifetimeProps) const override;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
 	TSubclassOf<UDamageType> DamageType;
@@ -61,18 +72,29 @@ protected:
 
 	virtual void Fire();
 
+	/* Auto-fire */
 	FTimerHandle TimerHandle_TimeBetweenShots;
-
-	float LastFireTime;
-
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
 	float RateOfFire;
-
+	
+	float LastFireTime;
 	float TimeBetweenShots;
 
-public:
-	
-	void StartFire();
+	/* Replication of weapons */
+	UFUNCTION(Server, Reliable, WithValidation)
+	void ServerFire();
 
+	void PlayFireEffects(FVector TraceEnd);
+	void PlayImpactEffect(EPhysicalSurface SurfaceType, FVector ImpactPoint);
+
+	UPROPERTY(ReplicatedUsing = OnRep_HitScanTrace)
+	FHitScanTrace HitScanTrace;
+
+	UFUNCTION()
+	void OnRep_HitScanTrace();
+	/* Replication of weapons ends */
+
+public:
+	void StartFire();
 	void StopFire();
 };
