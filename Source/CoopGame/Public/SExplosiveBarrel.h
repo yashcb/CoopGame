@@ -39,7 +39,13 @@ protected:
 			class AController* InstigatedBy,
 			AActor* DamageCauser);
 
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
+	UPROPERTY(ReplicatedUsing = OnRep_Exploded)
 	bool bExploded;
+
+	UFUNCTION()
+	void OnRep_Exploded();
 
 	/* Impulse applied to the barrel mesh when it explodes to boost it up a little */
 	UPROPERTY(EditDefaultsOnly, Category = "FX")
@@ -55,6 +61,4 @@ protected:
 
 	FVector BarrelLocation;
 	FVector BarrelRotation;
-
-
 };

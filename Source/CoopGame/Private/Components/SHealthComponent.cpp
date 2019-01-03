@@ -2,13 +2,12 @@
 
 #include "G:/Yash/CoopGame/Source/CoopGame/Public/Components/SHealthComponent.h"
 #include "GameFramework/Actor.h"
-#include "UnrealNetwork.h"
+#include "Net/UnrealNetwork.h"
 
 // Sets default values for this component's properties
 USHealthComponent::USHealthComponent()
 {
 	DefaultHealth = 100;
-
 	SetIsReplicated(true);
 }
 
@@ -52,4 +51,10 @@ void  USHealthComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& O
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME(USHealthComponent, Health);
+}
+
+void USHealthComponent::OnRep_Health(float OldHealth)
+{
+    float Damage = Health - OldHealth;
+    OnHealthChanged.Broadcast(this, Health, Damage, nullptr, nullptr, nullptr);
 }

@@ -58,6 +58,9 @@
     <ClInclude Include="..\..\Source\CoopGame\Public\SExplosiveBarrel.h">
       <Filter>Source\CoopGame\Public</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\CoopGame\Public\AI\STrackerBot.h">
+      <Filter>Source\CoopGame\Public\AI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\CoopGame\SCharacter.cpp">
@@ -75,6 +78,9 @@
     <ClCompile Include="..\..\Source\CoopGame\Private\SExplosiveBarrel.cpp">
       <Filter>Source\CoopGame\Private</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\CoopGame\Private\AI\STrackerBot.cpp">
+      <Filter>Source\CoopGame\Private\AI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source\CoopGame\Public">
@@ -88,6 +94,12 @@
     </Filter>
     <Filter Include="Source\CoopGame\Private\Components">
       <UniqueIdentifier>{2a1c1d6b-4758-4a32-a335-b3507e342f1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\CoopGame\Public\AI">
+      <UniqueIdentifier>{3df1aea4-e311-492f-afd2-90de11d14cbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\CoopGame\Private\AI">
+      <UniqueIdentifier>{375458df-393a-48c3-a2e8-2ffd2c6e5818}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -30,7 +30,7 @@ ASWeapon::ASWeapon()
 	RateOfFire = 600;
 
 	SetReplicates(true);
-	bReplicates = true;
+	//bReplicates = true;
 
 	NetUpdateFrequency = 66.0f;
 	MinNetUpdateFrequency = 33.0f;
@@ -91,7 +91,6 @@ void ASWeapon::Fire()
 				DamageType);
 
 			PlayImpactEffect(SurfaceType, Hit.ImpactPoint);
-
 			TracerEndPoint = Hit.ImpactPoint;
 		}
 		if (DebugWeaponDrawing > 0)
