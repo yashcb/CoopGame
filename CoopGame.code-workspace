@@ -8,6 +8,10 @@
 		}
 	],
 	"settings": {
-		"typescript.tsc.autoDetect": "off"
+		"typescript.tsc.autoDetect": "off",
+		"files.associations": {"*.modules": "json",
+			"*.target": "json",
+			"*.uproject": "json",
+			"*.uplugin": "json"}
 	}
 }

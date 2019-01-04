@@ -1,5 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+#include <CoopGame/Public/Components/SHealthComponent.h>
+
 #include "G:/Yash/CoopGame/Source/CoopGame/Public/Components/SHealthComponent.h"
 #include "GameFramework/Actor.h"
 #include "Net/UnrealNetwork.h"
@@ -43,7 +45,6 @@ void USHealthComponent::HandleTakeAnyDamage(
 	Health = FMath::Clamp(Health - Damage, 0.0f, DefaultHealth);
 
 	UE_LOG(LogTemp, Log, TEXT("Health changed : %s"), *FString::SanitizeFloat(Health))
-
 	OnHealthChanged.Broadcast(this, Health, Damage, DamageType, InstigatedBy, DamageCauser);
 }
 
@@ -57,4 +58,15 @@ void USHealthComponent::OnRep_Health(float OldHealth)
 {
     float Damage = Health - OldHealth;
     OnHealthChanged.Broadcast(this, Health, Damage, nullptr, nullptr, nullptr);
+}
+
+void USHealthComponent::Heal(float HealAmount)
+{
+    if (HealAmount <= 0.0f || Health <= 0.0f)
+    { return; }
+
+    Health = FMath::Clamp(Health + HealAmount, 0.0f, DefaultHealth);
+    UE_LOG(LogTemp, Log, TEXT("Health changed : %s(+%s)"), *FString::SanitizeFloat(Health), *FString::SanitizeFloat(HealAmount))
+
+    OnHealthChanged.Broadcast(this, Health, -HealAmount, nullptr, nullptr, nullptr);
 }
