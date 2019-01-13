@@ -1,14 +1,17 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include <CoopGame/Public/SPowerupActor.h>
-
 #include "SPowerupActor.h"
+#include "Net/UnrealNetwork.h"
+#include "TimerManager.h"
 
 // Sets default values
 ASPowerupActor::ASPowerupActor()
 {
     PowerupInterval = 0.0f;
     TotalNrOfTicks = 0;
+
+	SetReplicates(true);
+	bIsPowerupActive = false;
 }
 
 // Called when the game starts or when spawned
@@ -25,13 +28,23 @@ void ASPowerupActor::OnTickPowerup()
     if (TickProcessed >= TotalNrOfTicks)
     {
         OnExpired();
+		bIsPowerupActive = false;
+		OnRep_PowerupActive();
+
         GetWorldTimerManager().ClearTimer(TimerHandle_PowerupTick);
     }
 }
 
-void ASPowerupActor::ActivatePowerup()
+void ASPowerupActor::OnRep_PowerupActive()
 {
-    OnActivated();
+	OnPowerupStateChanged(bIsPowerupActive);
+}
+
+void ASPowerupActor::ActivatePowerup(AActor* ActiveFor)
+{
+    OnActivated(ActiveFor);
+	bIsPowerupActive = true;
+	OnRep_PowerupActive();
 
     if (PowerupInterval > 0.0f)
     {
@@ -39,4 +52,10 @@ void ASPowerupActor::ActivatePowerup()
                                         true);
     }
     else{  OnTickPowerup(); }
+}
+
+void  ASPowerupActor::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(ASPowerupActor, bIsPowerupActive);
 }

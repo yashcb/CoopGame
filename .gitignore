@@ -15,6 +15,9 @@ cmake-build-release/
 .vscode/
 CMakeLists.txt
 CoopGame.code-workspace
+*VC.db
+*.gen.cpp.obj.response
+*.bin
 
 # User-specific files
 *.suo
