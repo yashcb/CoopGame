@@ -1,16 +1,18 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include <CoopGame/Public/Components/SHealthComponent.h>
-
 #include "G:/Yash/CoopGame/Source/CoopGame/Public/Components/SHealthComponent.h"
 #include "GameFramework/Actor.h"
 #include "Net/UnrealNetwork.h"
+#include "SGameMode.h"
+#include "Components/ActorComponent.h"
 
 // Sets default values for this component's properties
 USHealthComponent::USHealthComponent()
 {
 	DefaultHealth = 100;
 	SetIsReplicated(true);
+
+	bIsDead = false;
 }
 
 // Called when the game starts
@@ -38,20 +40,35 @@ void USHealthComponent::HandleTakeAnyDamage(
 						class AController* InstigatedBy, 
 						AActor* DamageCauser)
 {
-	if (Damage <= 0.0f)
+	if (Damage <= 0.0f || bIsDead)
 	{	return;	}
 
 	/// Update health clamped
 	Health = FMath::Clamp(Health - Damage, 0.0f, DefaultHealth);
 
 	UE_LOG(LogTemp, Log, TEXT("Health changed : %s"), *FString::SanitizeFloat(Health))
+
+	bIsDead = Health <= 0.0f;
+
 	OnHealthChanged.Broadcast(this, Health, Damage, DamageType, InstigatedBy, DamageCauser);
+
+	if (bIsDead)
+	{
+		ASGameMode* GM = Cast<ASGameMode>(GetWorld()->GetAuthGameMode());
+		if (GM)
+		{	GM->OnActorKilled.Broadcast(GetOwner(), DamageCauser, InstigatedBy);	}
+	}
 }
 
 void  USHealthComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME(USHealthComponent, Health);
+}
+
+float USHealthComponent::GetHealth() const
+{
+	return Health;
 }
 
 void USHealthComponent::OnRep_Health(float OldHealth)
