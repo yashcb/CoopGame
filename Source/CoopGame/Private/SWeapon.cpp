@@ -57,6 +57,11 @@ void ASWeapon::Fire()
 		MyOwner->GetActorEyesViewPoint(EyeLocation, EyeRotation);
 
 		FVector ShotDirection = EyeRotation.Vector();
+
+		/* Bullet Spread! */
+		float HalfRed = FMath::DegreesToRadians(BulletSpread);
+		ShotDirection = FMath::VRandCone(ShotDirection, HalfRed, HalfRed);
+
 		FVector TraceEnd = EyeLocation + (ShotDirection * 10000);
 
 		FCollisionQueryParams QueryParams;
@@ -87,7 +92,7 @@ void ASWeapon::Fire()
 				ShotDirection,
 				Hit,
 				MyOwner->GetInstigatorController(),
-				this,
+				MyOwner,
 				DamageType);
 
 			PlayImpactEffect(SurfaceType, Hit.ImpactPoint);

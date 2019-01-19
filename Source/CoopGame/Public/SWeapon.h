@@ -76,9 +76,12 @@ protected:
 	FTimerHandle TimerHandle_TimeBetweenShots;
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
 	float RateOfFire;
-	
+	 
 	float LastFireTime;
 	float TimeBetweenShots;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Weapon", meta = (ClampMin = 0.0f))
+	float BulletSpread; // Bullet Spread in degrees
 
 	/* Replication of weapons */
 	UFUNCTION(Server, Reliable, WithValidation)

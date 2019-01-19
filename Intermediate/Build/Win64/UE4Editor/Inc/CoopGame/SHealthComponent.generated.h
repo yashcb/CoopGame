@@ -42,6 +42,16 @@ static inline void FOnHealthChangedSignature_DelegateWrapper(const FMulticastScr
 
 #define CoopGame_Source_CoopGame_Public_Components_SHealthComponent_h_23_RPC_WRAPPERS \
  \
+	DECLARE_FUNCTION(execIsFriendly) \
+	{ \
+		P_GET_OBJECT(AActor,Z_Param_ActorA); \
+		P_GET_OBJECT(AActor,Z_Param_ActorB); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(bool*)Z_Param__Result=USHealthComponent::IsFriendly(Z_Param_ActorA,Z_Param_ActorB); \
+		P_NATIVE_END; \
+	} \
+ \
 	DECLARE_FUNCTION(execHeal) \
 	{ \
 		P_GET_PROPERTY(UFloatProperty,Z_Param_HealAmount); \
@@ -75,6 +85,16 @@ static inline void FOnHealthChangedSignature_DelegateWrapper(const FMulticastScr
 
 
 #define CoopGame_Source_CoopGame_Public_Components_SHealthComponent_h_23_RPC_WRAPPERS_NO_PURE_DECLS \
+ \
+	DECLARE_FUNCTION(execIsFriendly) \
+	{ \
+		P_GET_OBJECT(AActor,Z_Param_ActorA); \
+		P_GET_OBJECT(AActor,Z_Param_ActorB); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		*(bool*)Z_Param__Result=USHealthComponent::IsFriendly(Z_Param_ActorA,Z_Param_ActorB); \
+		P_NATIVE_END; \
+	} \
  \
 	DECLARE_FUNCTION(execHeal) \
 	{ \

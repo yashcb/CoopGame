@@ -12,6 +12,8 @@ USHealthComponent::USHealthComponent()
 	DefaultHealth = 100;
 	SetIsReplicated(true);
 
+	TeamNum = 255;
+
 	bIsDead = false;
 }
 
@@ -41,6 +43,9 @@ void USHealthComponent::HandleTakeAnyDamage(
 						AActor* DamageCauser)
 {
 	if (Damage <= 0.0f || bIsDead)
+	{	return;	}
+
+	if (DamageCauser != DamagedActor && IsFriendly(DamagedActor, DamageCauser))
 	{	return;	}
 
 	/// Update health clamped
@@ -86,4 +91,18 @@ void USHealthComponent::Heal(float HealAmount)
     UE_LOG(LogTemp, Log, TEXT("Health changed : %s(+%s)"), *FString::SanitizeFloat(Health), *FString::SanitizeFloat(HealAmount))
 
     OnHealthChanged.Broadcast(this, Health, -HealAmount, nullptr, nullptr, nullptr);
+}
+
+bool USHealthComponent::IsFriendly(AActor* ActorA, AActor* ActorB)
+{
+	if (ActorA == nullptr || ActorB == nullptr)
+	{	return true;	}
+
+	USHealthComponent* HealthCompA = Cast<USHealthComponent>(ActorA->GetComponentByClass(USHealthComponent::StaticClass()));
+	USHealthComponent* HealthCompB = Cast<USHealthComponent>(ActorB->GetComponentByClass(USHealthComponent::StaticClass()));
+
+	if (ActorA == nullptr || ActorB == nullptr)
+	{	return true;	}
+
+	return HealthCompA->TeamNum == HealthCompB->TeamNum;
 }

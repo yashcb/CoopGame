@@ -35,10 +35,6 @@ protected:
 
 	void EndZoom();
 
-	void StartFire();
-
-	void StopFire();
-
 	UFUNCTION()
 	void OnHealthChanged(
 				USHealthComponent* OwningHealthComp,
@@ -89,4 +85,10 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
 	virtual FVector GetPawnViewLocation() const override;
+
+	UFUNCTION(BlueprintCallable, Category = "Player")
+		void StartFire();
+
+	UFUNCTION(BlueprintCallable, Category = "Player")
+		void StopFire();
 };
