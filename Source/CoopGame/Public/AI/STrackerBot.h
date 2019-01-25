@@ -95,6 +95,11 @@ public:
 	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
 
     void OnCheckNearbyBots();
+	
+	void RefreshPath();
 
     float PowerLevel;
+
+	FTimerHandle TimerHandle_RefreshPath;
+
 };
